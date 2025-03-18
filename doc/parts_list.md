@@ -13,5 +13,4 @@ Motors: Drive: Any DC Motors.
 Speakers (Optional): Make noises.  
 
 ## Other stuff:
-Arduino  
 Wheels  
