@@ -8,7 +8,7 @@ Gyroscope (Optional): Detect when it’s picked up
 
 ## Actuators:
 [LCD/OLED Monitor](https://www.amazon.de/-/en/APKLVSR-Display-Compatible-Arduino-Raspberry/dp/B0CFFB62F4?dib=eyJ2IjoiMSJ9.uVS1Zygh9Z0ggtFpduceVEBID_zA084TVmo7m3wagKklhdXqmTQq13lAk1dR4OsJjEYWoYFIyIyOu6rSmfWfjj3x2pBs7JW-55K7yzobmpogeJHHLXIGDPZVgGkRSJZbOV1nAveFFdZFMLOVc55aFsFu2bA7GN6uo4x56UXh6V7niXWkc-hqwV6kI73nzpe3gm95sohGeu67p8os3nYIHAepIkdhFAunc5PZQ6yVzQ4.ZyXpCl3tQ-pScxejmPbCB-yZiaaUjKtRkhASAKKRV04&dib_tag=se&keywords=arduino%2Boled%2Bdisplay&qid=1742146511&sr=8-4&th=1): Show facial expressions.  
-Motors: Drive: Any DC Motors.
+Motors: Drive: Any DC Motors.  
 [Microphone](https://www.dfrobot.com/product-2665.html?tracking=65bf32787571b): Hear commands.  
 Speakers (Optional): Make noises.  
 
