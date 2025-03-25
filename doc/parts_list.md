@@ -1,7 +1,7 @@
 # Parts List
 
 ## Sensors:
-[IR sensor](https://nl.rs-online.com/web/p/pir-sensors/2027614?gb=s): Detect walls and maybe drops.  
+[IR sensor](https://www.conrad.nl/nl/p/joy-it-sen-ky032ir-ir-zender-geschikt-voor-serie-arduino-bbc-micro-bit-raspberry-pi-1-stuk-s-2306254.html?utm_source=google&utm_medium=surfaces&utm_campaign=shopping-feed&utm_content=free-google-shopping-clicks&utm_term=2306254&utm_source=google&utm_medium=cpc&utm_campaign=NL+-+PMAX+-+Nonbrand+-+High&utm_id=17213980048&gad_source=1&gclid=Cj0KCQjwqIm_BhDnARIsAKBYcmtxKPBZ3wB7a56HW1Kniv0JdFNnxn3NaXW-wvnmEj8jNSHNbS7zSKkaAtaEEALw_wcB#productTechData): Detect walls and maybe drops.  
 VGA Camera (Optional): recognize objects  
 Accelerometer (Optional): Detect when it’s picked up  
 Gyroscope (Optional): Detect when it’s picked up  
