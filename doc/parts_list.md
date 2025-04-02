@@ -8,10 +8,15 @@ VGA Camera (Optional): recognize objects
 
 ## Actuators:
 [LCD/OLED Monitor](https://nl.rs-online.com/web/p/lcd-monochrome-displays/0564422?gb=s): Show facial expressions.  
-[3 Motors](https://nl.rs-online.com/web/p/dc-motors/2389709?gb=s): Drive.  
+[1 Motors](https://nl.rs-online.com/web/p/dc-motors/2389709?gb=s): Drive.  
+[Servo](https://nl.rs-online.com/web/p/servo-motors/7813046)  
 [Microphone](https://nl.rs-online.com/web/p/microphones/2836478?gb=s): Hear commands.  
 [Power Bank](https://nl.rs-online.com/web/p/power-banks/2361454)  
 Speakers (Optional): Make noises.  
 
 ## Other stuff:
 Wheels  
+
+[Gear](https://nl.rs-online.com/web/p/spur-gears/8787815)  
+[Gear](https://nl.rs-online.com/web/p/spur-gears/1827804)  
+[Wheel](https://eu.robotshop.com/products/tamiya-wheels-pair?qd=7adc668f45dd4542b28a68c1af106eb1)
