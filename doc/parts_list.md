@@ -9,9 +9,9 @@ VGA Camera (Optional): recognize objects
 ## Actuators:
 [LCD/OLED Monitor](https://nl.rs-online.com/web/p/lcd-monochrome-displays/0564422?gb=s): Show facial expressions.  
 [1 Motors](https://nl.rs-online.com/web/p/dc-motors/2389709?gb=s): Drive.  
-[Servo](https://nl.rs-online.com/web/p/servo-motors/7813046)  
+[Servo](https://nl.rs-online.com/web/p/servo-motors/7813046): Steer.  
 [Microphone](https://nl.rs-online.com/web/p/microphones/2836478?gb=s): Hear commands.  
-[Power Bank](https://nl.rs-online.com/web/p/power-banks/2361454)  
+[Power Bank](https://nl.rs-online.com/web/p/power-banks/2361454): Power.  
 Speakers (Optional): Make noises.  
 
 ## Other stuff:
