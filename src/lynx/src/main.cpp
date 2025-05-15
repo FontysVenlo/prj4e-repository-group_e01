@@ -22,6 +22,10 @@ void loop() {
   loopUltrasonic();
   loopgyro();
   delay(1000); // Delay to match original measurement frequency
+  //float currentDistanceCm = loopUltrasonic();
+  //Serial.print("Main loop - Distance (cm): ");
+  //Serial.println(currentDistanceCm);
+  delay(10); // Delay to match original measurement frequency
 }
 
 // put function definitions here:

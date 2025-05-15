@@ -17,7 +17,7 @@ void setupUltrasonic() {
   pinMode(echoPin, INPUT);       // Sets the echoPin as an Input
 }
 
-void loopUltrasonic() {
+float loopUltrasonic() {
   // Clears the trigPin
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
@@ -41,4 +41,5 @@ void loopUltrasonic() {
   Serial.println(distanceCm);
   Serial.print("Distance (inch): ");
   Serial.println(distanceInch);
+  return distanceCm;
 } 

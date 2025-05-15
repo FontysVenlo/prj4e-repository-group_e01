@@ -5,6 +5,7 @@
 
 // Pin definition
 extern const int AMP_PIN;
+extern const int AMP_PIN2; // Added for the second microphone
 
 // Function declarations
 void setupMicrophone();

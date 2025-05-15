@@ -9,6 +9,6 @@ extern const int echoPin;
 
 // Function declarations
 void setupUltrasonic();
-void loopUltrasonic();
+float loopUltrasonic();
 
 #endif // ULTRASONIC_H 
