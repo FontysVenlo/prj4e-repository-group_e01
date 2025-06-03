@@ -35,7 +35,17 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+  delay(1000);
   loopMicrophone();
+
+  int steering_angle = 94;
+  if(differenceVolts > 0){
+    steering_angle = 64;
+  }else{
+    steering_angle = 124;
+  }
+  manualMovement(steering_angle, 50);
+  
   loopUltrasonic();
   loopgyro();
   delay(1000); // Delay to match original measurement frequency

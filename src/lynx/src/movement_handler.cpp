@@ -3,6 +3,7 @@
 #include "movement_handler.h"
 #include <freertos/semphr.h>
 #include <math.h>
+#include <Wire.h>
 
 
 #define PWMB 2
@@ -22,9 +23,6 @@ static Path path;
 static int current_target;
 static bool movement_stop;
 static bool manual_movement;
-
-SemaphoreHandle_t i2c_mutex = NULL;
-int i2c_motor_value = 0;
 
 static const float wheelbase = 20.0;
 static const float lr = 6.0;
@@ -111,9 +109,10 @@ static void updateMotors(int motor_percentage){
         pwm_value = 100;
     }
 
-    xSemaphoreTake(i2c_mutex, portMAX_DELAY);
-    i2c_motor_value = value;
-    xSemaphoreGive(i2c_mutex);
+    Wire.beginTransmission(0x20);
+    Wire.write(0x13);//PortsB
+    Wire.write(value);
+    Wire.endTransmission();
 
     analogWrite(PWMA, pwm_value * 1.2);
     analogWrite(PWMB, pwm_value * 1.2);

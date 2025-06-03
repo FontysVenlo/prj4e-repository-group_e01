@@ -1,8 +1,8 @@
 #include "microphone.h"
 
 // Pin definition
-const int AMP_PIN = 39; // First microphone
-const int AMP_PIN2 = 34; // Second microphone (ensure this pin is appropriate for your hardware)
+const int AMP_PIN = 0; // First microphone
+const int AMP_PIN2 = 4; // Second microphone (ensure this pin is appropriate for your hardware)
 
 // Constants
 const int sampleWindow = 50; // Sample window width in mS (50 mS = 20Hz)
