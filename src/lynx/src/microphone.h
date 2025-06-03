@@ -9,6 +9,6 @@ extern const int AMP_PIN2; // Added for the second microphone
 
 // Function declarations
 void setupMicrophone();
-void loopMicrophone();
+double loopMicrophone();
 
 #endif // MICROPHONE_H 

@@ -15,6 +15,7 @@ int myFunction(int, int);
 void movementTask(void * arg);
 void timer_callback(void* arg);
 
+
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200); // Starts the serial communication
@@ -31,17 +32,17 @@ void setup() {
   Wire.endTransmission();
 
   xTaskCreate(movementTask, "Movement_Task", 2048, NULL, 7, &movement_task_handle);
+  xTaskCreate(ultrasonicTask, "Ultrasonic_Task", 2048, NULL, 5, NULL);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  loopMicrophone();
-  loopUltrasonic();
+  double direction = loopMicrophone();
   loopgyro();
-  delay(1000); // Delay to match original measurement frequency
-  //float currentDistanceCm = loopUltrasonic();
-  //Serial.print("Main loop - Distance (cm): ");
-  //Serial.println(currentDistanceCm);
+  // Delay to match original measurement frequency
+  float currentDistanceCm = loopUltrasonic();
+  Serial.print("Main loop - Distance (cm): ");
+  Serial.println(currentDistanceCm);
   delay(10); // Delay to match original measurement frequency
   
 }
@@ -78,5 +79,14 @@ void movementTask(void * arg){
     ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
 
     updateMovement();
+  }
+}
+
+// Wrapper task for ultrasonic sensor
+void ultrasonicTask(void *arg) {
+  while (true) {
+    float distance = loopUltrasonic();
+    // Optionally, do something with distance or add a delay
+    vTaskDelay(pdMS_TO_TICKS(10));
   }
 }

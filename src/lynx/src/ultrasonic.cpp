@@ -1,8 +1,8 @@
 #include "ultrasonic.h"
 
 // Pin definitions
-const int trigPin = 13;
-const int echoPin = 36;
+const int trigPin = 18;
+const int echoPin = 19;
 
 // Define sound speed in cm/µs
 #define SOUND_SPEED 0.034
@@ -18,6 +18,7 @@ void setupUltrasonic() {
 }
 
 float loopUltrasonic() {
+  
   // Clears the trigPin
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
@@ -42,4 +43,5 @@ float loopUltrasonic() {
   Serial.print("Distance (inch): ");
   Serial.println(distanceInch);
   return distanceCm;
+
 } 
