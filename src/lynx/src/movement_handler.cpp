@@ -21,17 +21,16 @@ static Servo servo;
 static Path path;
 static int current_target;
 static bool movement_stop;
+static bool manual_movement;
 
 SemaphoreHandle_t i2c_mutex = NULL;
-int i2c_value = 0;
+int i2c_motor_value = 0;
 
 static const float wheelbase = 20.0;
 static const float lr = 6.0;
 static const float lf = 14.0;
 static const float dt = 0.02;
 static const float look_ahead_distance = 10.0;
-
-static int debug_counter = 0;
 
 
 static float distance(float px, float py){
@@ -58,15 +57,6 @@ static void steeringController(){
             
             current_target = i;
 
-            if(debug_counter == 25){
-                Serial.print("Target: ");
-                Serial.print(current_target);
-                Serial.print(": ");
-                Serial.print(px);
-                Serial.print(", ");
-                Serial.print(py);
-                Serial.print("\n");
-            }
  
             // Curvature and steering
             float curvature = (2 * local_y) / (look_ahead_distance * look_ahead_distance);
@@ -122,7 +112,7 @@ static void updateMotors(int motor_percentage){
     }
 
     xSemaphoreTake(i2c_mutex, portMAX_DELAY);
-    i2c_value = value;
+    i2c_motor_value = value;
     xSemaphoreGive(i2c_mutex);
 
     analogWrite(PWMA, pwm_value * 1.2);
@@ -137,7 +127,7 @@ void initializeMovementHandler(){
     i2c_mutex = xSemaphoreCreateMutex();
 
     xSemaphoreTake(i2c_mutex, portMAX_DELAY);
-    i2c_value = 0;
+    i2c_motor_value = 0;
     xSemaphoreGive(i2c_mutex);
 
     //set state of model to 0
@@ -161,7 +151,14 @@ void initializeMovementHandler(){
 
 }
 
+void manualMovement(int steering_angle, int motor_percentage){
+    manual_movement = true;
+    updateServo(steering_angle);
+    updateMotors(motor_percentage);
+}
+
 void startMovement(){
+    manual_movement = false;
     movement_stop = false;
 }
 
@@ -181,6 +178,11 @@ void updateMovement(){
         return;
     }
 
+    if(manual_movement){
+        updateModel();
+        return;
+    }
+
     steeringController();
     updateModel();
 
@@ -191,19 +193,6 @@ void updateMovement(){
     }
 
     updateServo(state.delta);
-
-    if(debug_counter == 25){
-        Serial.println("\n---");
-        Serial.print("x: "); Serial.print(state.x);
-        Serial.print(" | y: "); Serial.print(state.y);
-        Serial.print(" | psi: "); Serial.print(state.psi * 180.0 / PI);  // degrees
-        Serial.print(" | delta: "); Serial.print(state.delta * 180.0 / PI);  // degrees
-        Serial.print(" | v: "); Serial.println(state.v);
-        Serial.println("---\n");
-        debug_counter = 0;
-    }else{
-        debug_counter++;
-    }
     
 }
 
