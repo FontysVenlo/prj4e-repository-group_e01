@@ -1,8 +1,6 @@
 #ifndef MOVEMENT_HANDLER
 #define MOVEMENT_HANDLER
 
-extern SemaphoreHandle_t i2c_mutex;
-extern int i2c_value;
 
 /** 
  * A point on a path.
@@ -46,9 +44,14 @@ typedef struct {
     float delta;
 }VehicleState;
 
+/** 
+ * Move Manually 
+ **/
+void manualMovement(int steering_angle, int motor_percentage);
+
 
 /** 
- * Start movement.
+ * Start following a path.
  **/
 void startMovement();
 

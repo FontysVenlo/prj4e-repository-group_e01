@@ -15,24 +15,32 @@ TaskHandle_t movement_task_handle = NULL;
 // put function declarations here:
 int myFunction(int, int);
 void movementTask(void * arg);
+void ultrasonicTask(void *arg);
 void timer_callback(void* arg);
+
+float distance;
 
 
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(115200); // Starts the serial communication
-  setupMicrophone();
-  setupUltrasonic();
-  setupgyro();
-  setup_monitor();
-  int result = myFunction(2, 3);
-
   Wire.begin(SDA,SCL);
 
   Wire.beginTransmission(0x20);
   Wire.write(0x01); //IODIRB
   Wire.write(0x00); //ALL OUTPUT
   Wire.endTransmission();
+
+  Wire.beginTransmission(0x20);
+  Wire.write(0x13);//PortsB
+  Wire.write(0);//All ports off
+  Wire.endTransmission();
+
+  Serial.begin(115200); // Starts the serial communication
+  setupMicrophone();
+  setupUltrasonic();
+  setupgyro();
+  setup_monitor();
+  int result = myFunction(2, 3);
 
   xTaskCreate(movementTask, "Movement_Task", 2048, NULL, 7, &movement_task_handle);
   xTaskCreate(ultrasonicTask, "Ultrasonic_Task", 2048, NULL, 5, NULL);
@@ -41,12 +49,17 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   double direction = loopMicrophone();
+  int steering_angle = direction > 0 ? 64 : 124;
+  manualMovement((steering_angle * PI / 180), 50);
+  
+  while(true){
+    if(distance < 50){
+      stopMovement();
+      break;
+    }
+  }
+  
   loopgyro();
-  // Delay to match original measurement frequency
-  float currentDistanceCm = loopUltrasonic();
-  Serial.print("Main loop - Distance (cm): ");
-  Serial.println(currentDistanceCm);
-  delay(10); // Delay to match original measurement frequency
   
 }
 
@@ -88,7 +101,7 @@ void movementTask(void * arg){
 // Wrapper task for ultrasonic sensor
 void ultrasonicTask(void *arg) {
   while (true) {
-    float distance = loopUltrasonic();
+    distance = loopUltrasonic();
     // Optionally, do something with distance or add a delay
     vTaskDelay(pdMS_TO_TICKS(10));
   }
