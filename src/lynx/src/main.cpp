@@ -4,6 +4,8 @@
 #include "ultrasonic.h"
 #include "gyroscope.h"
 #include "movement_handler.h"
+#include "monitor.h"
+#include "bitmaps.h"
 
 #define SDA 21
 #define SCL 22
@@ -22,6 +24,7 @@ void setup() {
   setupMicrophone();
   setupUltrasonic();
   setupgyro();
+  setup_monitor();
   int result = myFunction(2, 3);
 
   Wire.begin(SDA,SCL);
