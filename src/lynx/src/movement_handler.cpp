@@ -123,12 +123,6 @@ void initializeMovementHandler(){
     servo.attach(SERVO_PIN);
     servo.write(93);
 
-    i2c_mutex = xSemaphoreCreateMutex();
-
-    xSemaphoreTake(i2c_mutex, portMAX_DELAY);
-    i2c_motor_value = 0;
-    xSemaphoreGive(i2c_mutex);
-
     //set state of model to 0
     state.x = 0.0;
     state.y = 0.0;
