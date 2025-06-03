@@ -17,6 +17,8 @@ int myFunction(int, int);
 void movementTask(void * arg);
 void timer_callback(void* arg);
 
+float distance;
+
 
 void setup() {
   // put your setup code here, to run once:
@@ -43,15 +45,15 @@ void loop() {
   delay(1000);
   double direction = loopMicrophone();
 
-  int steering_angle = 94;
-  if(direction > 0){
-    steering_angle = 64;
-  }else{
-    steering_angle = 124;
-  }
+  int steering_angle = direction > 0 ? 64 : 124;
   manualMovement(steering_angle, 50);
   
-  loopUltrasonic();
+  while(true){
+    if(distance < 100){
+      stopMovement();
+      break;
+    }
+  }
   
   loopgyro();
   // Delay to match original measurement frequency
@@ -100,7 +102,7 @@ void movementTask(void * arg){
 // Wrapper task for ultrasonic sensor
 void ultrasonicTask(void *arg) {
   while (true) {
-    float distance = loopUltrasonic();
+    distance = loopUltrasonic();
     // Optionally, do something with distance or add a delay
     vTaskDelay(pdMS_TO_TICKS(10));
   }
