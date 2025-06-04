@@ -42,23 +42,14 @@ void setup() {
   setup_monitor();
   int result = myFunction(2, 3);
 
-  xTaskCreate(movementTask, "Movement_Task", 2048, NULL, 7, &movement_task_handle);
+  xTaskCreatePinnedToCore(movementTask, "Movement_Task", 2048, NULL, 7, &movement_task_handle, 0);
   xTaskCreate(ultrasonicTask, "Ultrasonic_Task", 2048, NULL, 5, NULL);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  double direction = loopMicrophone();
-  int steering_angle = direction > 0 ? 64 : 124;
-  manualMovement((steering_angle * PI / 180), 50);
-  
-  while(true){
-    if(distance < 50){
-      stopMovement();
-      break;
-    }
-  }
-  
+  listenAndTurn();
+
   loopgyro();
   
 }
@@ -104,5 +95,29 @@ void ultrasonicTask(void *arg) {
     distance = loopUltrasonic();
     // Optionally, do something with distance or add a delay
     vTaskDelay(pdMS_TO_TICKS(10));
+  }
+}
+
+void listenAndTurn(){
+  double direction = loopMicrophone();
+  int steering_angle = direction > 0 ? -30 : 30;
+  manualMovement(steering_angle, 100);
+  
+  while(true){
+    if(distance < 100){
+      stopMovement();
+      break;
+    }
+    delay(10);
+  }
+
+  manualMovement(94, 100);
+
+  while(true){
+    if(distance < 20){
+      stopMovement();
+      break;
+    }
+    delay(10);
   }
 }

@@ -38,10 +38,10 @@ float loopUltrasonic() {
   distanceInch = distanceCm * CM_TO_INCH;
   
   // Prints the distance in the Serial Monitor
-  Serial.print("Distance (cm): ");
-  Serial.println(distanceCm);
-  Serial.print("Distance (inch): ");
-  Serial.println(distanceInch);
+  //Serial.print("Distance (cm): ");
+  //Serial.println(distanceCm);
+  //Serial.print("Distance (inch): ");
+  //Serial.println(distanceInch);
   return distanceCm;
 
 } 
