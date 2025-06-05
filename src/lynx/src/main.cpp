@@ -97,7 +97,7 @@ void listenAndTurn(){
   Serial.println("turning started");
   
   while(true){
-    if(distance < 100){
+    if(distance < 50){
       stopMovement();
       Serial.print("Movement stopped after turning, distance:");
       Serial.println(distance);
