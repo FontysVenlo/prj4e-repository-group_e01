@@ -2876,143 +2876,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "prj4:SEN-KY032IR"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "U"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Value" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "SEN-KY032IR_0_1"
-				(rectangle
-					(start -5.08 6.35)
-					(end 5.08 -7.62)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "SEN-KY032IR_1_1"
-				(pin power_in line
-					(at -3.81 -7.62 270)
-					(length 2.54)
-					(name "VCC"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_out line
-					(at -1.27 -7.62 270)
-					(length 2.54)
-					(name "GND"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output line
-					(at 1.27 -7.62 270)
-					(length 2.54)
-					(name "SNG_OUT"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at 3.81 -7.62 270)
-					(length 2.54)
-					(name "EN"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "prj4:tb6612fng"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -3807,16 +3670,6 @@
 	)
 	(wire
 		(pts
-			(xy 243.84 57.15) (xy 243.84 66.04)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c776de63-9593-4e34-be6e-1f33ec0d5813")
-	)
-	(wire
-		(pts
 			(xy 50.8 105.41) (xy 58.42 105.41)
 		)
 		(stroke
@@ -3974,16 +3827,6 @@
 			(type default)
 		)
 		(uuid "e98db525-26a0-4c94-811f-bb6bfbf5913d")
-	)
-	(wire
-		(pts
-			(xy 241.3 57.15) (xy 241.3 66.04)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e9ab9a58-0e7d-4eae-ae33-2e7f50300738")
 	)
 	(wire
 		(pts
@@ -4445,82 +4288,6 @@
 			(project "PRJ4_Electical_Layout"
 				(path "/cdbfb8fb-cebf-44e8-ba3a-bda7c53d363b"
 					(reference "#PWR019")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "prj4:SEN-KY032IR")
-		(at 245.11 49.53 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "5bc70278-a843-4b5d-a86a-1867cf51932f")
-		(property "Reference" "U1"
-			(at 245.11 49.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "~"
-			(at 251.46 51.435 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 245.11 49.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 245.11 49.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 245.11 49.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "3"
-			(uuid "2d7fc443-a043-4863-9dc2-1ad8a2563c9b")
-		)
-		(pin "2"
-			(uuid "6a2930b1-ffc3-45f1-bdb4-e1fae4cc6516")
-		)
-		(pin "4"
-			(uuid "1a081935-9019-45b5-b593-f5a6cdcb2ed4")
-		)
-		(pin "1"
-			(uuid "b67b52ed-ad4b-4472-8005-05b373cb63fe")
-		)
-		(instances
-			(project ""
-				(path "/cdbfb8fb-cebf-44e8-ba3a-bda7c53d363b"
-					(reference "U1")
 					(unit 1)
 				)
 			)
@@ -6193,72 +5960,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+5V")
-		(at 241.3 66.04 180)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "b9304d7c-2e0d-4d14-9732-6b095d898704")
-		(property "Reference" "#PWR01"
-			(at 241.3 62.23 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+5V"
-			(at 241.3 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 241.3 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 241.3 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 241.3 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "aec42112-e1a0-4740-8d9a-b2af025f7cb0")
-		)
-		(instances
-			(project ""
-				(path "/cdbfb8fb-cebf-44e8-ba3a-bda7c53d363b"
-					(reference "#PWR01")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 257.81 97.79 270)
 		(unit 1)
@@ -6320,72 +6021,6 @@
 			(project "PRJ4_Electical_Layout"
 				(path "/cdbfb8fb-cebf-44e8-ba3a-bda7c53d363b"
 					(reference "#PWR017")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 243.84 66.04 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "bd05fe55-5499-40e0-9e6e-d6d94f4f1d1a")
-		(property "Reference" "#PWR02"
-			(at 243.84 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 243.84 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 243.84 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 243.84 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 243.84 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "66085df4-c680-4dd4-a575-2cd273fab4c3")
-		)
-		(instances
-			(project ""
-				(path "/cdbfb8fb-cebf-44e8-ba3a-bda7c53d363b"
-					(reference "#PWR02")
 					(unit 1)
 				)
 			)
