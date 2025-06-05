@@ -17,6 +17,7 @@ int myFunction(int, int);
 void movementTask(void * arg);
 void ultrasonicTask(void *arg);
 void timer_callback(void* arg);
+void listenAndTurn();
 
 float distance;
 
@@ -24,18 +25,9 @@ float distance;
 void setup() {
   // put your setup code here, to run once:
   Wire.begin(SDA,SCL);
-
-  Wire.beginTransmission(0x20);
-  Wire.write(0x01); //IODIRB
-  Wire.write(0x00); //ALL OUTPUT
-  Wire.endTransmission();
-
-  Wire.beginTransmission(0x20);
-  Wire.write(0x13);//PortsB
-  Wire.write(0);//All ports off
-  Wire.endTransmission();
-
   Serial.begin(115200); // Starts the serial communication
+
+  setupMovementHandler();
   setupMicrophone();
   setupUltrasonic();
   setupgyro();
@@ -102,22 +94,30 @@ void listenAndTurn(){
   double direction = loopMicrophone();
   int steering_angle = direction > 0 ? -30 : 30;
   manualMovement(steering_angle, 100);
+  Serial.println("turning started");
   
   while(true){
     if(distance < 100){
       stopMovement();
+      Serial.print("Movement stopped after turning, distance:");
+      Serial.println(distance);
       break;
     }
-    delay(10);
+    delay(30);
   }
 
-  manualMovement(94, 100);
+  delay(500);
+  manualMovement(0, 100);
+  
+  Serial.println("Movment started again");
 
   while(true){
-    if(distance < 20){
+    if(distance < 10){
       stopMovement();
+      Serial.print("Movement stopped again, distance:");
+      Serial.println(distance);
       break;
     }
-    delay(10);
+    delay(30);
   }
 }

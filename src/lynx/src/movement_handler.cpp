@@ -7,7 +7,7 @@
 
 
 #define PWMB 2
-#define PWMA 15
+#define PWMA 5
 #define SERVO_PIN 12
 
 
@@ -248,6 +248,25 @@ void generateSinePath(Point* path, float amplitude, float wavelength, int sample
       path[i].x = i * wavelength / sample_size;
       path[i].y = amplitude * sin((2 * PI * i) / sample_size);
   }
+}
+
+void setupMovementHandler(){
+
+  pinMode(PWMA, OUTPUT);
+  pinMode(PWMB, OUTPUT);
+
+  analogWrite(PWMA, 120);
+  analogWrite(PWMB, 120);
+
+  Wire.beginTransmission(0x20);
+  Wire.write(0x01); //IODIRB
+  Wire.write(0x00); //ALL OUTPUT
+  Wire.endTransmission();
+
+  Wire.beginTransmission(0x20);
+  Wire.write(0x13);//PortsB
+  Wire.write(0);//All ports off
+  Wire.endTransmission();
 }
 
 
