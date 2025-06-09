@@ -21,7 +21,7 @@ void setup_monitor()
   display.display();
 }
 
-void updateAnimation(unsigned char PROGMEM image1[], unsigned char PROGMEM image2[])
+void updateAnimation(const unsigned char PROGMEM image1[], const unsigned char PROGMEM image2[])
 {
   if (millis() - previousMillis >= 1500)
   {
