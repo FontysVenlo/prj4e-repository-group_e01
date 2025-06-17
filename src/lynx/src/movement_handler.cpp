@@ -7,7 +7,7 @@
 
 
 #define PWMB 2
-#define PWMA 15
+#define PWMA 5
 #define SERVO_PIN 12
 
 
@@ -146,7 +146,11 @@ void initializeMovementHandler(){
 
 void manualMovement(int steering_angle, int motor_percentage){
     manual_movement = true;
-    updateServo(steering_angle);
+    movement_stop = false;
+    state.delta = steering_angle * PI / 180;
+    updateServo(state.delta);
+    float steering_factor = 1.0 - (abs(state.delta) / (30.0 * PI / 180)) * 0.3;
+    state.v = 32 * steering_factor;
     updateMotors(motor_percentage);
 }
 
@@ -161,13 +165,13 @@ void stopMovement(){
 
 void updateMovement(){
 
-    if(current_target >= path.length){
+    if(current_target >= path.length && !manual_movement){
         movement_stop = true;
     }
 
     if(movement_stop){
-       state.v = 0;
-        updateMotors(100);
+        state.v = 0;
+        updateMotors(0);
         return;
     }
 
@@ -182,7 +186,7 @@ void updateMovement(){
     if (state.v > 0) {
         updateMotors(100);  
     } else {
-        updateMotors(100);   
+        updateMotors(0);   
     }
 
     updateServo(state.delta);
@@ -244,6 +248,25 @@ void generateSinePath(Point* path, float amplitude, float wavelength, int sample
       path[i].x = i * wavelength / sample_size;
       path[i].y = amplitude * sin((2 * PI * i) / sample_size);
   }
+}
+
+void setupMovementHandler(){
+
+  pinMode(PWMA, OUTPUT);
+  pinMode(PWMB, OUTPUT);
+
+  analogWrite(PWMA, 120);
+  analogWrite(PWMB, 120);
+
+  Wire.beginTransmission(0x20);
+  Wire.write(0x01); //IODIRB
+  Wire.write(0x00); //ALL OUTPUT
+  Wire.endTransmission();
+
+  Wire.beginTransmission(0x20);
+  Wire.write(0x13);//PortsB
+  Wire.write(0);//All ports off
+  Wire.endTransmission();
 }
 
 

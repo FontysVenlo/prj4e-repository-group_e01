@@ -45,6 +45,11 @@ typedef struct {
 }VehicleState;
 
 /** 
+ * Sets up the movement handler 
+ **/
+void setupMovementHandler();
+
+/** 
  * Move Manually 
  **/
 void manualMovement(int steering_angle, int motor_percentage);

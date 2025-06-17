@@ -17,50 +17,46 @@ int myFunction(int, int);
 void movementTask(void * arg);
 void ultrasonicTask(void *arg);
 void timer_callback(void* arg);
+void listenAndTurn();
+void waitForObstacle(float threshold);
+void follow();
 
 float distance;
 
+// Enum to define robot states
+enum RobotState {
+    IDLE,
+    TURNING,
+    MOVING_FORWARD,
+    AVOIDING_OBSTACLE
+};
+
+RobotState currentState = IDLE;
+
+// Declare variables outside the switch statement to fix scope issues
+double direction = 0;
+int steering_angle = 0;
 
 void setup() {
   // put your setup code here, to run once:
   Wire.begin(SDA,SCL);
-
-  Wire.beginTransmission(0x20);
-  Wire.write(0x01); //IODIRB
-  Wire.write(0x00); //ALL OUTPUT
-  Wire.endTransmission();
-
-  Wire.beginTransmission(0x20);
-  Wire.write(0x13);//PortsB
-  Wire.write(0);//All ports off
-  Wire.endTransmission();
-
   Serial.begin(115200); // Starts the serial communication
+
+  setupMovementHandler();
   setupMicrophone();
   setupUltrasonic();
   setupgyro();
   setup_monitor();
   int result = myFunction(2, 3);
 
-  xTaskCreate(movementTask, "Movement_Task", 2048, NULL, 7, &movement_task_handle);
+  xTaskCreatePinnedToCore(movementTask, "Movement_Task", 2048, NULL, 7, &movement_task_handle, 0);
   xTaskCreate(ultrasonicTask, "Ultrasonic_Task", 2048, NULL, 5, NULL);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  double direction = loopMicrophone();
-  int steering_angle = direction > 0 ? 64 : 124;
-  manualMovement((steering_angle * PI / 180), 50);
-  
-  while(true){
-    if(distance < 50){
-      stopMovement();
-      break;
-    }
-  }
-  
+  // Call follow() instead of listenAndTurn()
+  follow();
   loopgyro();
-  
 }
 
 // put function definitions here:
@@ -105,4 +101,71 @@ void ultrasonicTask(void *arg) {
     // Optionally, do something with distance or add a delay
     vTaskDelay(pdMS_TO_TICKS(10));
   }
+}
+
+void listenAndTurn() {
+    updateAnimation(listening1, listening2);
+    double direction = loopMicrophone();
+    
+    updateAnimation(standard1, standard2);
+    int steering_angle = direction > 0 ? -30 : 30;
+
+    // Start turning
+    manualMovement(steering_angle, 100);
+    Serial.println("Turning started");
+    waitForObstacle(50);
+
+    // Resume forward movement
+    delay(500);
+    manualMovement(0, 100);
+    Serial.println("Movement started again");
+    waitForObstacle(10);
+}
+
+void waitForObstacle(float threshold) {
+    while (true) {
+        if (distance < threshold) {
+            stopMovement();
+            Serial.println(distance);
+            break;
+        }
+        delay(30);
+    }
+}
+
+void follow() {
+    switch (currentState) {
+        case IDLE:
+
+            Serial.println("State: IDLE");
+            updateAnimation(listening1, listening2);
+            if (loopMicrophone() != 0) {
+                currentState = TURNING;
+            }
+            break;
+
+        case TURNING:
+            Serial.println("State: TURNING");
+            updateAnimation(standard1, standard2);
+            direction = loopMicrophone();
+            steering_angle = direction > 0 ? -30 : 30;
+            manualMovement(steering_angle, 100);
+            waitForObstacle(50);
+            currentState = MOVING_FORWARD;
+            break;
+
+        case MOVING_FORWARD:
+            Serial.println("State: MOVING_FORWARD");
+            manualMovement(0, 100);
+            if (distance < 10) {
+                currentState = AVOIDING_OBSTACLE;
+            }
+            break;
+
+        case AVOIDING_OBSTACLE:
+            Serial.println("State: AVOIDING_OBSTACLE");
+            stopMovement();
+            currentState = IDLE;
+            break;
+    }
 }

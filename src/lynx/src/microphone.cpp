@@ -1,7 +1,7 @@
 #include "microphone.h"
 
 // Pin definition
-const int AMP_PIN = 0; // First microphone
+const int AMP_PIN = 15; // First microphone
 const int AMP_PIN2 = 4; // Second microphone 
 
 // Constants
@@ -22,9 +22,9 @@ double loopMicrophone() {
     unsigned int sample1, sample2;
 
     unsigned int signalMax1 = 0;
-    unsigned int signalMin1 = 1024;
+    unsigned int signalMin1 = 4096;
     unsigned int signalMax2 = 0;
-    unsigned int signalMin2 = 1024;
+    unsigned int signalMin2 = 4096;
 
     // Collect data for 50 mS for both microphones
     while (millis() - startMillis < sampleWindow) {
@@ -52,24 +52,24 @@ double loopMicrophone() {
 
     // Calculate for Mic 1
     unsigned int peakToPeak1 = signalMax1 - signalMin1;
-    double volts1 = (peakToPeak1 * 5.0) / 1024;
+    double volts1 = (peakToPeak1 * 3.3) / 4095.0;
 
     // Calculate for Mic 2
     unsigned int peakToPeak2 = signalMax2 - signalMin2;
-    double volts2 = (peakToPeak2 * 5.0) / 1024;
+    double volts2 = (peakToPeak2 * 3.3) / 4095.0;
 
     // Calculate the difference
-    double difference = abs(volts1 - volts2);
+    double difference = volts1 - volts2;
 
-    // Update the maximum difference
-    if (difference > maxDifference) {
+    // Update the maximum difference with sign
+    if (abs(difference) > abs(maxDifference)) {
       maxDifference = difference;
     }
   }
-  return maxDifference; // Return the maximum difference found during the 10 seconds
   // Print the maximum difference after 10 seconds
   Serial.println("--- Maximum Difference ---");
   Serial.print("Max Difference (Volts): ");
   Serial.println(maxDifference, 4);
   Serial.println("--------------------------");
+  return maxDifference; // Return the maximum difference found during the 10 seconds
 }
