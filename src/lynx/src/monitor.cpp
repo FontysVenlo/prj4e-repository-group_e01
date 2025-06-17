@@ -38,3 +38,10 @@ void updateAnimation(unsigned char PROGMEM image1[], unsigned char PROGMEM image
     previousMillis = millis();
   }
 }
+
+void updateFace(unsigned char PROGMEM image[])
+{
+  display.clearDisplay();
+  display.drawBitmap(0, (32 - (ImageHeight1 / 2)), image, ImageWidth1, ImageHeight1, 1);
+  display.display();
+}

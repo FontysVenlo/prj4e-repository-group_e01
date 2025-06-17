@@ -13,6 +13,7 @@ extern Adafruit_SSD1306 display;
 extern unsigned long previousMillis;
 
 void setup_monitor();
-void updateAnimation();
+void updateAnimation(unsigned char PROGMEM image1[], unsigned char PROGMEM image2[]);
+void updateFace(unsigned char PROGMEM image[]);
 
 #endif // MONITOR_H
