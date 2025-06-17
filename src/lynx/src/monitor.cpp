@@ -39,7 +39,7 @@ void updateAnimation(const unsigned char PROGMEM image1[], const unsigned char P
   }
 }
 
-void updateFace(unsigned char PROGMEM image[])
+void updateFace(const unsigned char PROGMEM image[])
 {
   display.clearDisplay();
   display.drawBitmap(0, (32 - (ImageHeight1 / 2)), image, ImageWidth1, ImageHeight1, 1);
