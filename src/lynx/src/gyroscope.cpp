@@ -2,6 +2,9 @@
 #include <Adafruit_Sensor.h>
 #include <Wire.h>
 #include "gyroscope.h"
+#include <Arduino.h>
+#include "monitor.h"
+#include "bitmaps.h"
 
 Adafruit_MPU6050 mpu;
 
@@ -105,10 +108,6 @@ void loopgyro() {
   Serial.print(", Z: ");
   Serial.print(g.gyro.z);
   Serial.println(" rad/s");
-
-  Serial.print("Temperature: ");
-  Serial.print(temp.temperature);
-  Serial.println(" degC");
 
   Serial.println("");
   */
