@@ -89,7 +89,7 @@ void loopgyro() {
   sensors_event_t a, g, temp;
   mpu.getEvent(&a, &g, &temp);
 
-  /* Print out the values */
+  /* Print out the values 
   Serial.print("Acceleration X: ");
   Serial.print(a.acceleration.x);
   Serial.print(", Y: ");
@@ -111,5 +111,6 @@ void loopgyro() {
   Serial.println(" degC");
 
   Serial.println("");
+  */
   delay(500);
 }

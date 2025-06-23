@@ -8,7 +8,7 @@
 
 #define PWMB 2
 #define PWMA 5
-#define SERVO_PIN 12
+#define SERVO_PIN 23
 
 
 static float distance(float px, float py);
@@ -98,7 +98,7 @@ static void updateServo(float steering_angle_radians){
 }
 
 static void updateMotors(int motor_percentage){
-    
+    //Serial.printf("Motor percentage: %d\n", motor_percentage);
     int pwm_value;
     pwm_value = motor_percentage > 100 ? 100 : motor_percentage;
 

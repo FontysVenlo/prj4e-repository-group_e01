@@ -56,7 +56,8 @@ void setup() {
 void loop() {
   // Call follow() instead of listenAndTurn()
   follow();
-  loopgyro();
+  //loopgyro();
+  //manualMovement(0, 100); // Start moving forward
 }
 
 // put function definitions here:
@@ -147,16 +148,34 @@ void follow() {
         case TURNING:
             Serial.println("State: TURNING");
             updateAnimation(standard1, standard2);
-            direction = loopMicrophone();
-            steering_angle = direction > 0 ? -30 : 30;
-            manualMovement(steering_angle, 100);
+            //direction = loopMicrophone();
+            direction = 2;
+            if (direction < -1 )
+            {
+              steering_angle = -30;
+              Serial.println(direction);
+              Serial.println("Turning right");
+            } else if (direction > 1) {
+              steering_angle = 30;
+              Serial.println(direction);
+              
+              Serial.println("Turning left");
+            } else {
+              steering_angle = 0;
+              Serial.println(direction);
+              Serial.println("No significant direction change detected, staying straight");
+            }
+            
+            manualMovement(steering_angle, 65);
             waitForObstacle(50);
+            vTaskDelay(pdMS_TO_TICKS(1000)); 
             currentState = MOVING_FORWARD;
+            
             break;
 
         case MOVING_FORWARD:
             Serial.println("State: MOVING_FORWARD");
-            manualMovement(0, 100);
+            manualMovement(0, 65);
             if (distance < 10) {
                 currentState = AVOIDING_OBSTACLE;
             }
