@@ -19,7 +19,7 @@ void ultrasonicTask(void *arg);
 void timer_callback(void* arg);
 void listenAndTurn();
 void waitForObstacle(float threshold);
-void follow();
+void follow(void *arg);
 double direction = 0;
 float distance;
 
@@ -51,11 +51,12 @@ void setup() {
 
   xTaskCreatePinnedToCore(movementTask, "Movement_Task", 2048, NULL, 7, &movement_task_handle, 0);
   xTaskCreate(ultrasonicTask, "Ultrasonic_Task", 2048, NULL, 5, NULL);
+  xTaskCreate(follow, "Follow",2048,NULL,5,NULL);
 }
 
 void loop() {
   // Call follow() instead of listenAndTurn()
-  follow();
+
   //loopgyro();
   //manualMovement(30, 80); // Start moving forward
 }
@@ -104,6 +105,7 @@ void ultrasonicTask(void *arg) {
   }
 }
 
+
 void listenAndTurn() {
     updateAnimation(listening1, listening2);
     double direction = loopMicrophone();
@@ -134,58 +136,57 @@ void waitForObstacle(float threshold) {
     }
 }
 
-void follow() {
-    
-    switch (currentState) {
-        case IDLE:
+void follow(void *arg) {
+    while (true) {
+        switch (currentState) {
+            case IDLE:
+                Serial.println("State: IDLE");
+                updateAnimation(listening1, listening2);
+                if (loopMicrophone() != 0) {
+                    currentState = TURNING;
+                }
+                break;
 
-            Serial.println("State: IDLE");
-            updateAnimation(listening1, listening2);
-            if (loopMicrophone() != 0) {
-                currentState = TURNING;
-            }
-            break;
+            case TURNING:
+                Serial.println("State: TURNING");
+                updateAnimation(standard1, standard2);
+                //direction = loopMicrophone();
+                direction = 2;
+                if (direction < -1 )
+                {
+                  steering_angle = -30;
+                  Serial.println(direction);
+                  Serial.println("Turning right");
+                } else if (direction > 1) {
+                  steering_angle = 30;
+                  Serial.println(direction);
+                  Serial.println("Turning left");
+                } else {
+                  steering_angle = 0;
+                  Serial.println(direction);
+                  Serial.println("No significant direction change detected, staying straight");
+                }
+                Serial.println(steering_angle);
+                manualMovement(steering_angle, 100);
+                waitForObstacle(25);
+                vTaskDelay(pdMS_TO_TICKS(1000)); 
+                currentState = MOVING_FORWARD;
+                break;
 
-        case TURNING:
-            
-            Serial.println("State: TURNING");
-            updateAnimation(standard1, standard2);
-            //direction = loopMicrophone();
-            direction = 2;
-            if (direction < -1 )
-            {
-              steering_angle = -30;
-              Serial.println(direction);
-              Serial.println("Turning right");
-            } else if (direction > 1) {
-              steering_angle = 30;
-              Serial.println(direction);
-              Serial.println("Turning left");
-            } else {
-              steering_angle = 0;
-              Serial.println(direction);
-              Serial.println("No significant direction change detected, staying straight");
-            }
-            Serial.println(steering_angle);
-            manualMovement(steering_angle, 100);
-            waitForObstacle(25);
-            vTaskDelay(pdMS_TO_TICKS(1000)); 
-            currentState = MOVING_FORWARD;
-            
-            break;
+            case MOVING_FORWARD:
+                Serial.println("State: MOVING_FORWARD");
+                manualMovement(0, 100);
+                if (distance < 10) {
+                    currentState = AVOIDING_OBSTACLE;
+                }
+                break;
 
-        case MOVING_FORWARD:
-            Serial.println("State: MOVING_FORWARD");
-            manualMovement(0, 100);
-            if (distance < 10) {
-                currentState = AVOIDING_OBSTACLE;
-            }
-            break;
-
-        case AVOIDING_OBSTACLE:
-            Serial.println("State: AVOIDING_OBSTACLE");
-            stopMovement();
-            currentState = IDLE;
-            break;
+            case AVOIDING_OBSTACLE:
+                Serial.println("State: AVOIDING_OBSTACLE");
+                stopMovement();
+                currentState = IDLE;
+                break;
+        }
+        vTaskDelay(pdMS_TO_TICKS(10)); // Prevent watchdog timer reset
     }
 }
