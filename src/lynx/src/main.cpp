@@ -20,7 +20,7 @@ void timer_callback(void* arg);
 void listenAndTurn();
 void waitForObstacle(float threshold);
 void follow();
-
+double direction = 0;
 float distance;
 
 // Enum to define robot states
@@ -33,8 +33,8 @@ enum RobotState {
 
 RobotState currentState = IDLE;
 
-// Declare variables outside the switch statement to fix scope issues
-double direction = 0;
+
+
 int steering_angle = 0;
 
 void setup() {
@@ -57,7 +57,7 @@ void loop() {
   // Call follow() instead of listenAndTurn()
   follow();
   //loopgyro();
-  //manualMovement(0, 100); // Start moving forward
+  //manualMovement(30, 80); // Start moving forward
 }
 
 // put function definitions here:
@@ -135,6 +135,7 @@ void waitForObstacle(float threshold) {
 }
 
 void follow() {
+    
     switch (currentState) {
         case IDLE:
 
@@ -146,6 +147,7 @@ void follow() {
             break;
 
         case TURNING:
+            
             Serial.println("State: TURNING");
             updateAnimation(standard1, standard2);
             //direction = loopMicrophone();
@@ -158,16 +160,15 @@ void follow() {
             } else if (direction > 1) {
               steering_angle = 30;
               Serial.println(direction);
-              
               Serial.println("Turning left");
             } else {
               steering_angle = 0;
               Serial.println(direction);
               Serial.println("No significant direction change detected, staying straight");
             }
-            
-            manualMovement(steering_angle, 65);
-            waitForObstacle(50);
+            Serial.println(steering_angle);
+            manualMovement(steering_angle, 100);
+            waitForObstacle(25);
             vTaskDelay(pdMS_TO_TICKS(1000)); 
             currentState = MOVING_FORWARD;
             
@@ -175,7 +176,7 @@ void follow() {
 
         case MOVING_FORWARD:
             Serial.println("State: MOVING_FORWARD");
-            manualMovement(0, 65);
+            manualMovement(0, 100);
             if (distance < 10) {
                 currentState = AVOIDING_OBSTACLE;
             }

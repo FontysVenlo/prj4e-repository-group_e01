@@ -8,7 +8,7 @@
 
 #define PWMB 2
 #define PWMA 5
-#define SERVO_PIN 23
+#define SERVO_PIN 12
 
 
 static float distance(float px, float py);

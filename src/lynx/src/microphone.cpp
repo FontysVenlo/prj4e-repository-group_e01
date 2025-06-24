@@ -75,18 +75,18 @@ double loopMicrophone() {
     }
   }
   // Print the maximum difference after 10 seconds
-  Serial.println("--- Maximum Difference ---");
-  Serial.print("Max Difference (Volts): ");
-  Serial.println(maxDifference, 4);
+  //Serial.println("--- Maximum Difference ---");
+  //Serial.print("Max Difference (Volts): ");
+  //Serial.println(maxDifference, 4);
 
   // Print the average volts after 10 seconds
-  double avgVolts1 = sumVolts1 / sampleCount;
-  double avgVolts2 = sumVolts2 / sampleCount;
-  Serial.println("--- Average Volts (10s) ---");
-  Serial.print("Mic 1 Avg (Volts): ");
-  Serial.println(avgVolts1, 4);
-  Serial.print("Mic 2 Avg (Volts): ");
-  Serial.println(avgVolts2, 4);
+  //double avgVolts1 = sumVolts1 / sampleCount;
+  //double avgVolts2 = sumVolts2 / sampleCount;
+  //Serial.println("--- Average Volts (10s) ---");//
+  //Serial.print("Mic 1 Avg (Volts): ");
+  //Serial.println(avgVolts1, 4);
+  //Serial.print("Mic 2 Avg (Volts): ");
+  //Serial.println(avgVolts2, 4);
   //Serial.println("--------------------------");
   return maxDifference; // Return the maximum difference found during the 10 seconds
 }
